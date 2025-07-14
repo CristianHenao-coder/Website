@@ -1,0 +1,265 @@
+readme : Caso de uso: eres un desarrollador web que ha recibido el encargo de desarrollar una Single Page
+Application (SPA) dedicada a la gestión de eventos, diseñada para que un organizador de eventos
+pueda gestionar una serie de eventos basados en la disponibilidad de lugares y asistentes. Este
+proyecto incluye la implementación de funcionalidades clave como la autenticación de usuarios,
+gestión de rutas protegidas, y persistencia de sesión, utilizando tecnologías modernas de
+JavaScript, HTML5, y CSS.
+Sumado a lo anterior, deberás simular una base de datos utilizando json-server para realizar
+operaciones CRUD, asegurando la consistencia y la integridad de los datos. Esta SPA proporcionará una
+experiencia completa tanto para los administradores, que podrán gestionar eventos y asistentes, como
+para los visitantes, que podrán ver y registrarse en los eventos disponibles<section class="books-table-section">
+Requisitos:
+1. Sistema de autenticación:
+a. Registro de usuarios con dos roles: administrador y visitante.
+b. Inicio de sesión para usuarios registrados.
+c. Protección de rutas mediante un guardián en Router.js.
+2. Persistencia de sesión:
+a. Uso del Local Storage para mantener la sesión iniciada y garantizar la experiencia del
+usuario.
+b. Al iniciar sesión, la información del usuario debe almacenarse en Local Storage para
+mantener la sesión.
+c. La sesión debe persistir incluso al recargar la página.
+3. Consistencia de datos:
+a. La aplicación debe sincronizar correctamente las operaciones CRUD con la base de
+datos simulada (json-server).
+4. Interfaz de usuario:
+a. La SPA debe ser responsiva y proporcionar una experiencia de usuario fluida.
+b. Debe haber formularios intuitivos para el registro y login, así como para la gestión de
+eventos.
+Criterios de aceptación:
+1. Funcionalidad completa:
+a. Los usuarios pueden registrarse, iniciar sesión, y navegar por las rutas según su rol
+asignado.
+Be a codernnn
+b. Los administradores pueden realizar todas las operaciones CRUD relacionadas con los
+eventos.
+c. Los visitantes pueden visualizar y registrarse en los eventos disponibles.
+2. Persistencia de sesión:
+a. La sesión del usuario debe mantenerse activa entre recargas de página.
+3. Consistencia de datos:
+a. Los datos deben sincronizarse correctamente entre la aplicación y json-server.
+4. Interfaz de usuario:
+a. La SPA debe ser responsiva y permitir una navegación fluida entre sus vistas.
+5. Entrega y documentación:
+a. Los archivos están organizados y presentes en el repositorio del proyecto.
+b. El código contiene comentarios claros explicando las secciones clave.
+c. El repositorio evidencia commits descriptivos por funcionalidad.
+ 
+
+
+
+
+html section:
+<link rel="stylesheet" href="/pages/diseños/every_events.css">
+
+    <table>
+        <thead>
+            <tr>
+                <td>Nombre</td>
+                <td>description</td>
+                <td>capacity</td>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nombre</td>
+                <td>description</td>
+                <td>capacity</td>
+                <td><button class="eliminar-btn">Eliminar</button></td>
+            </tr>
+            <tr>
+                <td>Nombre</td>
+                <td>description two</td>
+                <td>capacity</td>
+                <td><button class="eliminar-btn">Eliminar</button></td>
+            </tr>
+        </tbody>
+    </table>
+ 
+
+    <template id="user-table-template">
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td><button class="eliminar-btn"></button></td>
+        </tr>
+    </template>
+</section>
+
+
+
+
+script.json
+  if (route === '/every_events') {
+        // Bloque de código que se ejecuta solo cuando la ruta actual es '/libros'.
+        const template = document.getElementById('user-table-template');
+        // Obtiene la referencia a un elemento de plantilla HTML (probablemente un <template>
+        // que contiene la estructura de una fila de tabla para un libro).
+        const table = document.querySelector('tbody');
+        // Obtiene la referencia al elemento `<tbody>` de la tabla donde se insertarán los datos.
+
+        table.innerHTML = '';
+        // Limpia cualquier contenido existente dentro del `<tbody>`.
+        // Esto es importante para evitar duplicados si la página se recarga o se vuelve a visitar la ruta.
+
+        const eve = await get( route  );
+        // Llama a la función 'get' (de services.js) para obtener todos los 'libros' del endpoint '/libros'.
+        // NOTA: La variable se llama 'users', pero el 'route' es '/libros', y el uso posterior es para libros.
+        // Esto sugiere que 'users' debería ser 'libros' para mayor claridad.
+
+        eve.forEach(event => {
+            // Itera sobre cada 'user' (que en realidad es un 'libro' en este contexto) obtenido de la API.
+            let clone = document.importNode(template.content, true);
+            // Clona el contenido del template (la estructura de la fila de la tabla).
+            // `true` asegura que también se clonen los elementos hijos del template.
+            let td = clone.querySelectorAll('td');
+            // Obtiene todos los elementos `<td>` (celdas de la tabla) dentro del clon de la fila.
+
+            td[0].textContent = event.name;   // Asigna el 'name' del libro a la primera celda.
+            td[1].textContent = event.descripcion; // Asigna el 'author' del libro a la segunda celda.
+            td[2].textContent = event.capacity;   // Asigna el 'year' del libro a la tercera celda.
+
+            
+
+            const btn = document.createElement('button');
+            // Crea un nuevo elemento HTML `<button>`.
+            btn.textContent = 'Eliminar'; // Establece el texto visible del botón como 'Eliminar'.
+            btn.addEventListener('click', () => {
+                // Añade un 'event listener' al botón para que cuando se haga clic en él...
+                deletes(route, event.id);
+                // ...llame a la función 'deletes' (de services.js) para eliminar el libro
+                // usando la ruta actual ('/libros') y el 'id' del libro específico.
+
+                alert(`Se borro exitosamente a ${event.name}`);
+                // Muestra una alerta confirmando la eliminación del libro.
+                window.location.reload();
+                // Recarga la página completa del navegador. Esto es una forma sencilla
+                // de actualizar la tabla después de una eliminación, aunque no es la más eficiente
+                // (una alternativa sería eliminar la fila del DOM directamente).
+            })
+
+            td[3].appendChild(btn);
+            // Añade el botón "Eliminar" como hijo a la cuarta celda `<td>` (columna de Acciones).
+
+            table.appendChild(clone);
+            // Añade el clon de la fila (con todos sus datos y el botón) al `<tbody>` de la tabla,
+            // haciéndolo visible en la página.
+        })
+    }
+}
+
+window.addEventListener('load', router);
+// Añade un 'event listener' al objeto global 'window'.
+// Cuando el evento 'load' (la página y todos sus recursos se han cargado) ocurre,
+// la función 'router' se ejecuta. Esto carga la página inicial.
+
+window.addEventListener('hashchange', router);
+// Añade un 'event listener' al objeto global 'window'.
+// Cuando el evento 'hashchange' (la parte del hash de la URL cambia) ocurre,
+// la función 'router' se ejecuta. Esto permite la navegación SPA (Single Page Application)
+// sin recargar la página completa.
+
+db.json 
+
+{
+  "usuarios": [
+    {
+      "id": "bceb",
+      "nombre": "camila8",
+      "correo": "camila8@gmail.com",
+      "contrasena": "asdasdsa",
+      "es_user": true
+    },
+    {
+      "id": "1d5e",
+      "nombre": "robertoandres378",
+      "correo": "robertoandres378@gmail.com",
+      "contrasena": "andressss1212",
+      "es_user": true
+    },
+    {
+      "id": "5779",
+      "nombre": "cristiancloser7",
+      "correo": "cristiancloser7@gmail.com",
+      "contrasena": "asdas",
+      "es_user": true
+    },
+    {
+      "id": "bc70",
+      "nombre": "instosmoiso",
+      "correo": "instosmoiso@hotmail.com",
+      "contrasena": "sdasdasdasd",
+      "es_user": true
+    },
+    {
+      "id": "602a",
+      "nombre": "lola22",
+      "correo": "lola22@gmail.com",
+      "contrasena": "f1231254",
+      "es_user": true
+    },
+    {
+      "id": "bb23",
+      "nombre": "santiagy",
+      "correo": "santiagy@gmail.com",
+      "contrasena": "gy1000",
+      "es_user": true
+    },
+    {
+      "id": "7b44",
+      "nombre": "hasdjashd",
+      "correo": "hasdjashd@gmail.com",
+      "contrasena": "asdasl4412",
+      "es_user": true
+    },
+    {
+      "id": "8c94",
+      "nombre": "maiclolesg",
+      "correo": "maiclolesg@gmail.com",
+      "contrasena": "asjdksbdaksdk",
+      "es_user": true
+    },
+    {
+      "id": "312c",
+      "nombre": "prueba",
+      "correo": "prueba@gmail.com",
+      "contrasena": "ksj12345",
+      "es_user": true
+    }
+  ],
+  "eventos": [
+    {
+      "id": "1a2b",
+      "name": "Cristian",
+      "descripcion": "crear span",
+      "capacity": "20"
+    },
+    {
+      "id": "13sd",
+      "name": "Don Quijote de la Mancha",
+      "descripcion": "Miguel de Cervantes",
+      "capacity": "16"
+    },
+    {
+      "id": "7b9b",
+      "name": "daniel",
+      "description": "hacer la tarea",
+      "capacity": "50"
+    },
+    {
+      "id": "d60d",
+      "name": "asdasd",
+      "description": "asdasd",
+      "capacity": "50"
+    },
+    {
+      "id": "976b",
+      "name": "un evento",
+      "description": "vamos por más",
+      "capacity": "50"
+    }
+  ]
+}
+
