@@ -1,0 +1,65 @@
+# Dashboard - Gestión de Eventos (SPA)
+
+## 📌 Descripción
+
+**Dashboard** es una Single Page Application (SPA) desarrollada para facilitar la gestión de eventos. Esta aplicación permite a organizadores (administradores) crear, editar y eliminar eventos, y a los visitantes visualizar y registrarse en ellos, todo dentro de una experiencia fluida y responsiva.
+
+El proyecto incluye funcionalidades clave como autenticación de usuarios, protección de rutas, persistencia de sesión y operaciones CRUD conectadas a una base de datos simulada mediante `json-server`.
+
+---
+
+## 🚀 Tecnologías utilizadas
+
+- HTML5
+- CSS3
+- JavaScript (ES6+)
+- json-server
+- LocalStorage
+- Routing personalizado con `Router.js`
+
+---
+
+## 🎯 Casos de uso
+
+- **Administrador:** Puede crear, editar, eliminar y ver eventos. Tiene acceso total a la gestión de la plataforma.
+- **Visitante:** Puede registrarse, iniciar sesión, ver eventos disponibles y registrarse en ellos.
+
+---
+
+## 🛠️ Funcionalidades principales
+
+### 1. 🧑‍💻 Sistema de autenticación
+- Registro de usuarios con roles: **Administrador** o **Visitante**.
+- Inicio de sesión con validación.
+- Protección de rutas según el rol mediante guardián en `Router.js`.
+
+### 2. 💾 Persistencia de sesión
+- Uso de **Local Storage** para guardar la información del usuario.
+- La sesión persiste incluso después de recargar la página.
+
+### 3. 🔄 CRUD y consistencia de datos
+- Operaciones **Crear, Leer, Actualizar y Eliminar (CRUD)** sobre eventos.
+- Sincronización en tiempo real con `json-server`.
+
+### 4. 📱 Interfaz de usuario
+- Diseño **responsive** adaptable a diferentes dispositivos.
+- Formularios intuitivos para el registro, login y gestión de eventos.
+- Navegación fluida entre vistas de la SPA.
+
+---
+
+## ✅ Criterios de aceptación
+
+- [x] Los usuarios pueden registrarse e iniciar sesión según su rol.
+- [x] Las rutas están protegidas por rol y el sistema de autenticación funciona correctamente.
+- [x] La información de sesión se guarda y persiste en Local Storage.
+- [x] CRUD completo funcional para eventos desde la vista del administrador.
+- [x] Los visitantes pueden registrarse a eventos disponibles.
+- [x] json-server mantiene la consistencia e integridad de los datos.
+- [x] El diseño es responsivo y usable en múltiples dispositivos.
+- [x] El código está comentado y organizado.
+- [x] El repositorio cuenta con commits descriptivos por funcionalidad.
+
+---
+
+## 📂 Estructura del proyecto
