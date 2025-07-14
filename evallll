@@ -63,3 +63,75 @@ El proyecto incluye funcionalidades clave como autenticación de usuarios, prote
 ---
 
 ## 📂 Estructura del proyecto
+
+
+
+
+
+# Dashboard - Event Management SPA
+
+## 📌 Description
+
+**Dashboard** is a Single Page Application (SPA) designed to help manage events efficiently. The app allows event organizers (admins) to create, update, and delete events, while visitors can browse and register for available events. It offers a seamless and responsive user experience.
+
+This project includes essential features like user authentication, protected routes, session persistence, and full CRUD operations using a simulated database with `json-server`.
+
+---
+
+## 🚀 Technologies Used
+
+- HTML5  
+- CSS3  
+- JavaScript (ES6+)  
+- json-server  
+- LocalStorage  
+- Custom Routing with `Router.js`  
+
+---
+
+## 🎯 Use Cases
+
+- **Admin:** Can create, edit, delete, and view events. Has full access to manage the platform.
+- **Visitor:** Can register, log in, view available events, and sign up for them.
+
+---
+
+## 🛠️ Key Features
+
+### 1. 🧑‍💻 Authentication System
+- User registration with two roles: **Admin** and **Visitor**.
+- Login for registered users.
+- Route protection based on roles using a guard in `Router.js`.
+
+### 2. 💾 Session Persistence
+- **LocalStorage** is used to save and persist user session data.
+- User sessions persist even after reloading the page.
+
+### 3. 🔄 CRUD & Data Consistency
+- Full **Create, Read, Update, Delete (CRUD)** operations on events.
+- Real-time data sync with `json-server`.
+
+### 4. 📱 User Interface
+- Fully **responsive design** for different devices.
+- Intuitive forms for registration, login, and event management.
+- Smooth navigation between views within the SPA.
+
+---
+
+## ✅ Acceptance Criteria
+
+- [x] Users can register and log in based on their assigned role.
+- [x] Routes are protected and the authentication system works correctly.
+- [x] User session is stored and persists via LocalStorage.
+- [x] Admins have full CRUD access for events.
+- [x] Visitors can view and sign up for available events.
+- [x] Data is synchronized correctly with `json-server`.
+- [x] The design is responsive and user-friendly across devices.
+- [x] The code is commented and organized.
+- [x] The repository includes descriptive commits per feature.
+
+---
+
+## 📂 Project Structure
+
+
